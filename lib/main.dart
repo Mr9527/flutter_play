@@ -40,13 +40,27 @@ class RandomWordsState extends State<RandomWords>{
         title: new Text("startup Name"),
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.list),onPressed: _pushSaved),
+          new IconButton(icon:new Icon(Icons.image),onPressed:_pushImage ),
         ],
       ),
       body:_buildSuggerstions(),
     );
     }
 
-Widget _pushSaved(){
+  Widget _pushImage(){
+    Navigator.of(context).push(new MaterialPageRoute(
+        builder: (context){
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text("images"),
+            ),
+            body: new Image.asset('images/lake.jpg',width: 600.0,height:240.0 ,fit: BoxFit.cover,)
+          );
+        }
+    ));
+  }
+
+  Widget _pushSaved(){
   Navigator.of(context).push(new MaterialPageRoute(
 builder: (context){
   final title =_saved.map(
