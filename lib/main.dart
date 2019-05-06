@@ -1,128 +1,177 @@
-// Step 2: Add the English words package and generate a word pairing each
-// time the app is hot reloaded.
-
+import 'package:enjoycar_agent_flutter/List.dart';
+import 'package:enjoycar_agent_flutter/GridViewView.dart';
+import 'package:enjoycar_agent_flutter/singleChildScrollViewImpl.dart';
+import 'package:enjoycar_agent_flutter/CustomScrollViewImpl.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primaryColor: Colors.pink
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      title: 'Welcome to Flutter',
-      home:new RandomWords(),
-      );
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
   }
 }
-class RandomWords extends StatefulWidget{
-  @override
-    State<StatefulWidget> createState() {
-      return new RandomWordsState();
-    }
-}
 
-class RandomWordsState extends State<RandomWords>{
-      //在flutter中使用_下划线开头时，会使其强制变成私有的
-    final _suggestions = <WordPair>[];
+class MyHomePage extends StatelessWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
 
-    final _saved = new Set<WordPair>();
-
-    final _biggerFont = const TextStyle(fontSize: 18.0);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return  new Scaffold(
-      appBar: new AppBar(
-        title: new Text("startup Name"),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.list),onPressed: _pushSaved),
-          new IconButton(icon:new Icon(Icons.image),onPressed:_pushImage ),
-        ],
-      ),
-      body:_buildSuggerstions(),
+    return new Scaffold(
+      appBar: AppBar(title: Text("Application")),
+      body: new FlexLayoutTestRoute(),
     );
-    }
-
-  Widget _pushImage(){
-    Navigator.of(context).push(new MaterialPageRoute(
-        builder: (context){
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text("images"),
-            ),
-            body: new Image.asset('images/lake.jpg',width: 600.0,height:240.0 ,fit: BoxFit.cover,)
-          );
-        }
-    ));
   }
-
-  Widget _pushSaved(){
-  Navigator.of(context).push(new MaterialPageRoute(
-builder: (context){
-  final title =_saved.map(
-    (pair){
-      return new ListTile(
-        title: new Text(
-          pair.asPascalCase,
-          style: _biggerFont,
-        ),
-      );
-    },
-  );
- final divider =ListTile.divideTiles(context: context,tiles: title).toList();
- return new Scaffold(
-   appBar: new AppBar(
-     title: new Text("Save Suggestions"),
-    ),
-    body: new ListView(children:divider),
-  );
-  },
-  ),
-  );
 }
 
-
-  Widget _buildSuggerstions(){
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context,i){
-      // 在每一列之前，添加一个1像素高的分隔线widget
-        if(i.isOdd) return new Divider();
-         // 语法 "i ~/ 2" 表示i除以2，但返回值是整形（向下取整），比如i为：1, 2, 3, 4, 5
-        // 时，结果为0, 1, 1, 2, 2， 这可以计算出ListView中减去分隔线后的实际单词对数量
-        final index = i ~/ 2;
-        //如果到达尾部则再继续添加数据
-        if(index>=_suggestions.length){
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
-        return _buildRow(_suggestions[index]);
-      },
+class FlexLayoutTestRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.start,
+          children: <Widget>[
+            new Chip(
+              avatar: new CircleAvatar(
+                  backgroundColor: Colors.blue, child: Text("C")),
+              label: Text("ChenZhaoJun"),
+            ),
+            new Chip(
+              avatar: new CircleAvatar(
+                  backgroundColor: Colors.blue, child: Text("X")),
+              label: Text("XunPei"),
+            ),
+            new Chip(
+              avatar: new CircleAvatar(
+                  backgroundColor: Colors.blue, child: Text("C")),
+              label: Text("Cooper"),
+            ),
+            new Chip(
+              avatar: new CircleAvatar(
+                  backgroundColor: Colors.red, child: Text("B")),
+              label: Text("Boss"),
+            ),
+          ],
+        ),
+        Stack(
+          children: <Widget>[
+            new Container(
+              margin: EdgeInsets.only(left: 10),
+              width: 80.0,
+              height: 80.0,
+              color: Colors.red,
+            ),
+            new Container(
+              margin: EdgeInsets.only(left: 15),
+              width: 80.0,
+              height: 80.0,
+              color: Colors.green,
+            ),
+            new Container(
+              margin: EdgeInsets.only(left: 18),
+              width: 80.0,
+              height: 80.0,
+              color: Colors.blue,
+            ),
+            new Container(
+              margin: EdgeInsets.only(left: 20),
+              width: 80.0,
+              height: 80.0,
+              color: Colors.yellow,
+            ),
+            new Container(
+              margin: EdgeInsets.only(left: 22),
+              width: 80.0,
+              height: 80.0,
+              color: Colors.brown,
+            ),
+            new Container(
+              margin: EdgeInsets.only(left: 24),
+              width: 80.0,
+              height: 80.0,
+              color: Colors.purple,
+            ),
+            Positioned(
+              left: 26,
+              child: new Container(
+                width: 80.0,
+                height: 80.0,
+                color: Colors.black,
+              ),
+            )
+          ],
+        ),
+       FloatingActionButton(
+         child: Text("List"), onPressed: () {
+           Navigator.push(context, new MaterialPageRoute(builder: (context){
+                return new ListPage();
+           }));
+         },
+       ),
+       FlatButton(child: Text("SingleChildScrollView"), onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context){
+                return new SingleChildScrollViewImpl();
+           }));
+       }),
+       RaisedButton(child: Text("GrdiView"), onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context){
+                return new GridViewPreview();
+           }));
+       }),
+       OutlineButton(child: Text("CustomScrollView"), onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context){
+                return new CustomScrollViewImpl();
+           }));
+       }),
+      ],
     );
   }
+}
 
-  Widget _buildRow(WordPair word){
-    final alreadySaved=_saved.contains(word);
-    return new ListTile(  
-      title: new Text(word.asPascalCase,
-      style: _biggerFont,
-      ),
-      trailing: new Icon(
-        alreadySaved?Icons.favorite:Icons.favorite_border,
-        color: alreadySaved?Colors.red:null,
-      ),
-      onTap: (){
-        setState(() {
-           if(alreadySaved){
-              _saved.remove(word);
-           }else{
-             _saved.add(word) ;
-           }
-          });
-      },
-      );
+class TestFlowDelegate extends FlowDelegate {
+  EdgeInsets margin = EdgeInsets.zero;
+  TestFlowDelegate({this.margin});
+
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    var x = margin.left;
+    var y = margin.top;
+    for (var i = 0; i < context.childCount; i++) {
+      var width = context.getChildSize(i).width + x + margin.right;
+      //如果长度小于父容器长度则横向绘制，否则则另一起一行
+      if (width < context.size.width) {
+        context.paintChild(i,
+            transform: new Matrix4.translationValues(x, y, 0.0));
+        x = width + margin.left;
+      } else {
+        x = margin.left;
+        y += context.getChildSize(i).height + margin.top + margin.bottom;
+        context.paintChild(i,
+            transform: new Matrix4.translationValues(x, y, 0.0));
+        x += context.getChildSize(i).width + margin.left + margin.right;
+      }
+    }
   }
-} 
+
+  @override
+  Size getSize(BoxConstraints constraints) {
+    return Size(double.infinity, 200.0);
+  }
+
+  @override
+  bool shouldRepaint(FlowDelegate oldDelegate) {
+    return oldDelegate != this;
+  }
+}

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/play_android.iml" filepath="$PROJECT_DIR$/play_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/play_android_android.iml" filepath="$PROJECT_DIR$/play_android_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/enjoycar_agent_flutter.iml" filepath="$PROJECT_DIR$/enjoycar_agent_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/enjoycar_agent_flutter_android.iml" filepath="$PROJECT_DIR$/android/enjoycar_agent_flutter_android.iml" />
     </modules>
   </component>
 </project>

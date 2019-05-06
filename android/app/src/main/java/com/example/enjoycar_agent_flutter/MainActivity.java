@@ -1,4 +1,4 @@
-package com.example.playandroid;
+package com.example.enjoycar_agent_flutter;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
