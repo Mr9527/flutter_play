@@ -1,7 +1,10 @@
-import 'package:enjoycar_agent_flutter/List.dart';
-import 'package:enjoycar_agent_flutter/GridViewView.dart';
+import 'package:enjoycar_agent_flutter/list.dart';
+import 'package:enjoycar_agent_flutter/gridViewView.dart';
 import 'package:enjoycar_agent_flutter/singleChildScrollViewImpl.dart';
-import 'package:enjoycar_agent_flutter/CustomScrollViewImpl.dart';
+import 'package:enjoycar_agent_flutter/customScrollViewImpl.dart';
+import 'package:enjoycar_agent_flutter/counterWidget.dart';
+import 'package:enjoycar_agent_flutter/willPopScope.dart';
+import 'package:enjoycar_agent_flutter/gestureDetectorTestRoute.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -113,28 +116,64 @@ class FlexLayoutTestRoute extends StatelessWidget {
             )
           ],
         ),
-       FloatingActionButton(
-         child: Text("List"), onPressed: () {
-           Navigator.push(context, new MaterialPageRoute(builder: (context){
-                return new ListPage();
-           }));
-         },
-       ),
-       FlatButton(child: Text("SingleChildScrollView"), onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (context){
+        FloatingActionButton(
+          child: Text("List"),
+          onPressed: () {
+            Navigator.push(context, new MaterialPageRoute(builder: (context) {
+              return new ListPage();
+            }));
+          },
+        ),
+        FlatButton(
+            child: Text("SingleChildScrollView"),
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
                 return new SingleChildScrollViewImpl();
-           }));
-       }),
-       RaisedButton(child: Text("GrdiView"), onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (context){
+              }));
+            }),
+        RaisedButton(
+            child: Text("GrdiView"),
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
                 return new GridViewPreview();
-           }));
-       }),
-       OutlineButton(child: Text("CustomScrollView"), onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (context){
+              }));
+            }),
+        OutlineButton(
+            child: Text("CustomScrollView"),
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
                 return new CustomScrollViewImpl();
-           }));
-       }),
+              }));
+            }),
+        FlatButton(
+          color: Colors.blue,
+          highlightColor: Colors.blue[700],
+          colorBrightness: Brightness.dark,
+          splashColor: Colors.grey,
+          child: Text("CounterWidget"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          onPressed: () => {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) {
+                  return new CounterWidget();
+                }))
+              },
+        ),
+        OutlineButton(
+            child: Text("WillPopScopeTest"),
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
+                return new WillPopScopeTestRoute();
+              }));
+            }),
+       OutlineButton(
+            child: Text("getstureDetectorTest"),
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
+                return new GestureDetectorTestRoute();
+              }));
+            }),
       ],
     );
   }
