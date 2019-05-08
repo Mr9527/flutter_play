@@ -5,6 +5,8 @@ import 'package:enjoycar_agent_flutter/customScrollViewImpl.dart';
 import 'package:enjoycar_agent_flutter/counterWidget.dart';
 import 'package:enjoycar_agent_flutter/willPopScope.dart';
 import 'package:enjoycar_agent_flutter/gestureDetectorTestRoute.dart';
+import 'package:enjoycar_agent_flutter/animationTestRoute.dart';
+import 'package:enjoycar_agent_flutter/advancedAnimation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -31,7 +33,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(title: Text("Application")),
-      body: new FlexLayoutTestRoute(),
+      body: new SingleChildScrollView(
+        child: FlexLayoutTestRoute(),
+      ),
     );
   }
 }
@@ -167,11 +171,31 @@ class FlexLayoutTestRoute extends StatelessWidget {
                 return new WillPopScopeTestRoute();
               }));
             }),
-       OutlineButton(
+        OutlineButton(
             child: Text("getstureDetectorTest"),
             onPressed: () {
               Navigator.push(context, new MaterialPageRoute(builder: (context) {
                 return new GestureDetectorTestRoute();
+              }));
+            }),
+        OutlineButton(
+            child: Text("animtaion"),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new PageRouteBuilder(
+                      transitionDuration: Duration(milliseconds: 500),
+                      pageBuilder: (BuildContext context, Animation animation,
+                          Animation scondaryAnimation) {
+                        return FadeTransition(
+                            opacity: animation, child: AnimationTestRoute());
+                      }));
+            }),
+        OutlineButton(
+            child: Text("AdvancedAnimation"),
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
+                return new StaggerView();
               }));
             }),
       ],
