@@ -55,7 +55,7 @@ class _StaggerViewState extends State<StaggerView>
 }
 
 /// 动画同时进行颜色边距和大小的变换
-class AdvancedAnimation extends StatelessWidget {
+class AdvancedAnimation extends StatefulWidget {
   final Animation<double> controller;
   Animation<double> height;
   Animation<EdgeInsets> padding;
@@ -74,21 +74,26 @@ class AdvancedAnimation extends StatelessWidget {
   }
 
   @override
+  _AdvancedAnimationState createState() => _AdvancedAnimationState();
+}
+
+class _AdvancedAnimationState extends State<AdvancedAnimation> {
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       builder: _buildAnimationWidget,
-      animation: controller,
+      animation: widget.controller,
     );
   }
 
   Widget _buildAnimationWidget(BuildContext context, Widget child) {
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: padding.value,
+      padding: widget.padding.value,
       child: Container(
-        color: color.value,
+        color: widget.color.value,
         width: 50.0,
-        height: height.value,
+        height: widget.height.value,
       ),
     );
   }
