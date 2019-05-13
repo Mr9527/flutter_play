@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:enjoycar_agent_flutter/io/diskTestRoute.dart';
+import 'package:enjoycar_agent_flutter/io/nativePluginRoute.dart';
 
 class IOViewRoute extends StatelessWidget {
   @override
@@ -20,6 +21,14 @@ class IOViewRoute extends StatelessWidget {
                     Navigator.push(context,
                         new MaterialPageRoute(builder: (context) {
                       return new FileOperationRoute();
+                    }));
+                  }),
+              OutlineButton(
+                  child: Text("plugin"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) {
+                      return new NativePluginRoute();
                     }));
                   }),
             ],
